@@ -148,6 +148,7 @@ That's it. Because there is no database or server, updates never require migrati
 | ![AI](./screenshots/ai-advisor.png) | ![Budget](./screenshots/budget.png) | ![Settings](./screenshots/settings.png) |
 
 ---
+---
 
 ## Features
 
