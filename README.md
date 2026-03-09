@@ -9,11 +9,39 @@
 > **Named after the *fiscus* — the personal treasury of the Roman Emperor.**
 > Your finances, centralized. Nothing leaves your device.
 
-Fiscus is a fully client-side personal finance platform built with React 18 + Vite. Import your bank transactions, track budgets, monitor debt payoff, and get AI-powered financial insights — all in the browser, with no server, no database, and no data collection.
+Fiscus is a **self-hosted, open-source personal finance dashboard** — similar in spirit to Firefly III, but built as a zero-dependency browser app. No Docker, no PHP, no database setup. Clone the repo, run two commands, and it's live in your browser.
+
+Import your bank transactions, track budgets, monitor debt payoff, and get AI-powered financial insights — entirely locally, with no server, no data collection, and no subscription.
 
 ---
 
-## Quick Start
+## Installation
+
+### Requirements
+
+| Requirement | Version | Download |
+|---|---|---|
+| **Node.js** | 18 or later (20 LTS recommended) | [nodejs.org](https://nodejs.org) |
+| **npm** | Included with Node.js | — |
+| **Git** | Any recent version | [git-scm.com](https://git-scm.com) |
+
+---
+
+### macOS
+
+**Option A — Homebrew (recommended)**
+
+If you don't have Homebrew installed, get it at [brew.sh](https://brew.sh), then:
+
+```bash
+brew install node git
+```
+
+**Option B — Direct installer**
+
+Download and run the macOS installer from [nodejs.org/en/download](https://nodejs.org/en/download). Git is pre-installed on macOS (it will prompt you to install Xcode Command Line Tools the first time you use it).
+
+**Install and run Fiscus:**
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/fiscus-ai-finance.git
@@ -22,9 +50,90 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173), then click **"Try Demo"** on the login screen to explore with pre-loaded sample data.
+Open your browser to **[http://localhost:5173](http://localhost:5173)**.
 
-> Works on macOS, Linux, and Windows. Requires Node.js 18 or later.
+---
+
+### Windows
+
+**Step 1 — Install Node.js**
+
+Download the Windows installer (`.msi`) from [nodejs.org/en/download](https://nodejs.org/en/download).
+Run the installer and accept the defaults. This also installs npm.
+
+Or with winget:
+```powershell
+winget install OpenJS.NodeJS.LTS
+```
+
+Or with Chocolatey:
+```powershell
+choco install nodejs-lts
+```
+
+**Step 2 — Install Git**
+
+Download from [git-scm.com/download/win](https://git-scm.com/download/win) and run the installer.
+Accept all defaults. "Git Bash" will be installed alongside it.
+
+**Step 3 — Clone and run**
+
+Open **Command Prompt**, **PowerShell**, or **Git Bash**:
+
+```powershell
+git clone https://github.com/YOUR_USERNAME/fiscus-ai-finance.git
+cd fiscus-ai-finance
+npm install
+npm run dev
+```
+
+Open your browser to **[http://localhost:5173](http://localhost:5173)**.
+
+> **Windows Firewall:** If prompted, allow Node.js through the firewall. The app only listens on `localhost` — it is not exposed to your network.
+
+---
+
+### Linux
+
+```bash
+# Debian / Ubuntu
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs git
+
+# Fedora / RHEL
+sudo dnf install nodejs git
+
+# Arch
+sudo pacman -S nodejs npm git
+```
+
+```bash
+git clone https://github.com/YOUR_USERNAME/fiscus-ai-finance.git
+cd fiscus-ai-finance
+npm install
+npm run dev
+```
+
+---
+
+### Try the Demo
+
+Once the app opens, click **"Try Demo"** on the login screen. A full set of realistic sample data loads instantly — no account creation needed. This is the best way to explore every feature before setting up your own account.
+
+---
+
+### Updating to a new version
+
+```bash
+cd fiscus-ai-finance
+git pull
+npm install
+npm run dev
+```
+
+That's it. Because there is no database or server, updates never require migrations.
+
+---
 
 ---
 
