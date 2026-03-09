@@ -1,6 +1,6 @@
 # Fiscus — AI-Powered Personal Finance Dashboard
 
-[![CI](https://github.com/YOUR_USERNAME/fiscus-ai-finance/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/fiscus-ai-finance/actions/workflows/ci.yml)
+[![CI](https://github.com/thomasjvalenzuela/fiscus-ai-finance/actions/workflows/ci.yml/badge.svg)](https://github.com/thomasjvalenzuela/fiscus-ai-finance/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
@@ -81,7 +81,7 @@ Accept all defaults. "Git Bash" will be installed alongside it.
 Open **Command Prompt**, **PowerShell**, or **Git Bash**:
 
 ```powershell
-git clone https://github.com/YOUR_USERNAME/fiscus-ai-finance.git
+git clone https://github.com/thomasjvalenzuela/fiscus-ai-finance.git
 cd fiscus-ai-finance
 npm install
 npm run dev
@@ -108,7 +108,7 @@ sudo pacman -S nodejs npm git
 ```
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/fiscus-ai-finance.git
+git clone https://github.com/thomasjvalenzuela/fiscus-ai-finance.git
 cd fiscus-ai-finance
 npm install
 npm run dev
