@@ -141,11 +141,15 @@ That's it. Because there is no database or server, updates never require migrati
 
 | Dashboard | Transactions | Debt Tracker |
 |---|---|---|
-| ![Dashboard](./screenshots/dashboard.png) | ![Transactions](./screenshots/transactions.png) | ![Debt](./screenshots/debt.png) |
+| ![Dashboard](./docs/images/dashboard.png) | ![Transactions](./docs/images/transactions.png) | ![Debt](./docs/images/debt.png) |
 
 | AI Advisor | Budget | Settings |
 |---|---|---|
-| ![AI](./screenshots/ai-advisor.png) | ![Budget](./screenshots/budget.png) | ![Settings](./screenshots/settings.png) |
+| ![AI Advisor](./docs/images/ai-advisor.png) | ![Budget](./docs/images/budget.png) | ![Settings](./docs/images/settings.png) |
+
+| Setup Wizard |
+|---|
+| ![Setup Wizard](./docs/images/setup-wizard.png) |
 
 ---
 ---
