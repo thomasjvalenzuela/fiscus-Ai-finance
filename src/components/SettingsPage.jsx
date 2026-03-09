@@ -204,7 +204,7 @@ export default function SettingsPage({
         <div className="text-xs rounded-xl px-3 py-2 flex items-start gap-2" style={{ background: 'var(--accent-light)', color: 'var(--primary)' }}>
           <Sparkles size={12} className="mt-0.5 shrink-0" />
           <span>
-            Example: keyword <strong>ZELLE MADISON</strong> → <strong>Debt Payment</strong> will auto-tag all Zelle transfers to Madison as a debt payment.
+            Example: keyword <strong>ZELLE RENT</strong> → <strong>Housing</strong> will auto-tag all Zelle rent transfers as a housing expense.
           </span>
         </div>
 

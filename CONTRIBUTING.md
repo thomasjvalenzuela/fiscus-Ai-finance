@@ -7,7 +7,7 @@ Thank you for your interest in contributing! This is an open-source project and 
 ## Getting Started
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/fiscus-ai-finance.git
+git clone https://github.com/thomasjvalenzuela/fiscus-ai-finance.git
 cd fiscus-ai-finance
 npm install
 npm run dev
@@ -72,4 +72,4 @@ Use the PR template — it only takes a minute to fill out.
 
 ## Questions?
 
-Open a [GitHub Discussion](https://github.com/YOUR_USERNAME/fiscus-ai-finance/discussions) or an issue tagged `question`.
+Open a [GitHub Discussion](https://github.com/thomasjvalenzuela/fiscus-ai-finance/discussions) or an issue tagged `question`.

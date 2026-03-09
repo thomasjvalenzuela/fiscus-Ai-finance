@@ -141,11 +141,11 @@ That's it. Because there is no database or server, updates never require migrati
 
 | Dashboard | Transactions | Debt Tracker |
 |---|---|---|
-| ![Dashboard](./docs/images/dashboard.png) | ![Transactions](./docs/images/transactions.png) | ![Debt](./docs/images/debt.png) |
+| ![Dashboard](./screenshots/dashboard.png) | ![Transactions](./screenshots/transactions.png) | ![Debt](./screenshots/debt.png) |
 
 | AI Advisor | Budget | Settings |
 |---|---|---|
-| ![AI](./docs/images/ai-advisor.png) | ![Budget](./docs/images/budget.png) | ![Settings](./docs/images/settings.png) |
+| ![AI](./screenshots/ai-advisor.png) | ![Budget](./screenshots/budget.png) | ![Settings](./screenshots/settings.png) |
 
 ---
 
@@ -322,7 +322,7 @@ See [`docs/deployment.md`](./docs/deployment.md) for detailed instructions.
 
 Contributions are welcome. Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md) before opening a PR.
 
-For bugs or feature ideas, [open an issue](https://github.com/YOUR_USERNAME/fiscus-ai-finance/issues) using the provided templates.
+For bugs or feature ideas, [open an issue](https://github.com/thomasjvalenzuela/fiscus-ai-finance/issues) using the provided templates.
 
 ---
 
