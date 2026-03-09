@@ -25,6 +25,18 @@ Import your bank transactions, track budgets, monitor debt payoff, and get AI-po
 | **Node.js** | 18 or later (20 LTS recommended) | [nodejs.org](https://nodejs.org) |
 | **npm** | Included with Node.js | — |
 | **Git** | Any recent version | [git-scm.com](https://git-scm.com) |
+---
+
+### Live Demo
+
+You can explore a fully functional demo of **Fiscus** here:
+
+**https://thomasjvalenzuela.github.io/fiscus-Ai-finance/**
+
+Once the app loads, click **“Try Demo”** on the login screen.  
+This instantly loads a realistic set of sample financial data so you can explore every feature of the dashboard without creating an account or entering any personal information.
+
+The demo runs entirely in your browser and uses synthetic data only.
 
 ---
 
@@ -114,12 +126,6 @@ cd fiscus-ai-finance
 npm install
 npm run dev
 ```
-
----
-
-### Try the Demo
-
-Once the app opens, click **"Try Demo"** on the login screen. A full set of realistic sample data loads instantly — no account creation needed. This is the best way to explore every feature before setting up your own account.
 
 ---
 
