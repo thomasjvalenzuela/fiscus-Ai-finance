@@ -44,7 +44,7 @@ Download and run the macOS installer from [nodejs.org/en/download](https://nodej
 **Install and run Fiscus:**
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/fiscus-ai-finance.git
+git clone https://github.com/thomasjvalenzuela/fiscus-ai-finance.git
 cd fiscus-ai-finance
 npm install
 npm run dev
