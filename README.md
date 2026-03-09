@@ -13,6 +13,7 @@ Fiscus is a **self-hosted, open-source personal finance dashboard** — similar 
 
 Import your bank transactions, track budgets, monitor debt payoff, and get AI-powered financial insights — entirely locally, with no server, no data collection, and no subscription.
 
+<img src="./docs/images/dashboard.png" width="900"/>
 ---
 
 ## Installation
