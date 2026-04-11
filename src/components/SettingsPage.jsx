@@ -33,8 +33,13 @@ export default function SettingsPage({
   useEffect(() => { setMerchantRules(storage.getMerchantRules()) }, [])
 
   const save = () => {
+    const safeBrand = {
+      ...brand,
+      logoUrl: brand.logoUrl && brand.logoUrl.startsWith('https://') ? brand.logoUrl : '',
+    }
     onSave(form)
-    onSaveBranding?.(brand)
+    onSaveBranding?.(safeBrand)
+    setBrand(safeBrand)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
   }
@@ -100,7 +105,7 @@ export default function SettingsPage({
               value={brand.logoUrl}
               onChange={e => setBrand(b => ({ ...b, logoUrl: e.target.value }))}
             />
-            {brand.logoUrl && (
+            {brand.logoUrl && brand.logoUrl.startsWith('https://') && (
               <img
                 src={brand.logoUrl}
                 alt="Logo preview"
@@ -110,6 +115,11 @@ export default function SettingsPage({
               />
             )}
           </div>
+          {brand.logoUrl && !brand.logoUrl.startsWith('https://') && (
+            <p className="text-[11px] mt-1" style={{ color: 'var(--danger)' }}>
+              Logo URL must start with https://
+            </p>
+          )}
         </div>
 
         <div>
@@ -161,7 +171,7 @@ export default function SettingsPage({
             </button>
           </div>
           <p className="text-[11px] mt-1.5" style={{ color: 'var(--text-muted)', opacity: 0.6 }}>
-            Stored in localStorage. Only sent to OpenAI API.
+            Stored locally in your browser. Only sent directly to OpenAI. Use a key with a spend limit and regenerate it periodically.
           </p>
         </div>
 

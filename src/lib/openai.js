@@ -6,9 +6,9 @@ const GROUP_BATCH_SIZE = 30 // keyword groups per API call (more efficient)
 
 const RULES_PROMPT = `Rules:
 - CC payments / ONLINE PAYMENT THANK YOU / APPLECARD GSBANK PAYMENT / CAPITAL ONE / ONLINE TRANSFER → "Transfer / Internal"
-- Payroll/direct deposit → "Salary". eBay deposits → "eBay Sales". eBay fees → "eBay Expenses"
-- Anchor Controls payroll → "Anchor Controls Income"; expenses → "Anchor Controls Expenses"
-- RentRedi/Avail → "Rental Platform Fees". Zelle from a person's name → "Rental Income"
+- Payroll/direct deposit/employer income → "Salary". Online marketplace deposits → "Marketplace Sales". Marketplace seller fees → "Marketplace Fees"
+- Business payroll received → "Business Income"; business-related expenses → "Business Expenses"
+- Rental management platform fees → "Rental Platform Fees". Zelle from a person's name → "Rental Income"
 - Gas stations → "Fuel". Auto parts/repair/insurance → "Auto". Grocery stores → "Groceries"
 - Restaurants/delivery/takeout → "Dining & Takeout". Convenience/vending → "Convenience & Snacks"
 - Google Workspace/Hostinger/GoDaddy/Squarespace/Envato/dev tools → "Software & Tools"
