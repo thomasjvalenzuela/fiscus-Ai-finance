@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Eye, EyeOff, Save, Trash2, Plus, X, Tag, Sparkles, Palette, Image } from 'lucide-react'
 import { CATEGORIES } from '../lib/categories.js'
 import { PALETTES } from '../lib/palettes.js'
-import { storage } from '../lib/storage.js'
+import { useSettingsStore } from '../stores/useSettingsStore.js'
+import { ThemeStylePicker } from './ThemeSwitcher.jsx'
 
 const MODELS = ['gpt-4o-mini', 'gpt-4o', 'gpt-4-turbo', 'gpt-3.5-turbo']
 
@@ -28,9 +30,10 @@ export default function SettingsPage({
   const [newRule,     setNewRule]     = useState({ keyword: '', category: 'Debt Payment' })
   const [showAddRule, setShowAddRule] = useState(false)
 
+  const { getMerchantRules, saveMerchantRules } = useSettingsStore()
   // Merchant rules
-  const [merchantRules, setMerchantRules] = useState(() => storage.getMerchantRules())
-  useEffect(() => { setMerchantRules(storage.getMerchantRules()) }, [])
+  const [merchantRules, setMerchantRules] = useState(() => getMerchantRules())
+  useEffect(() => { setMerchantRules(getMerchantRules()) }, [getMerchantRules])
 
   const save = () => {
     const safeBrand = {
@@ -54,17 +57,18 @@ export default function SettingsPage({
 
   const removeMerchantRule = keyword => {
     const updated = merchantRules.filter(r => r.keyword !== keyword)
-    storage.saveMerchantRules(updated)
+    saveMerchantRules(updated)
     setMerchantRules(updated)
   }
   const updateMerchantRuleCategory = (keyword, newCat) => {
     const updated = merchantRules.map(r => r.keyword === keyword ? { ...r, category: newCat } : r)
-    storage.saveMerchantRules(updated)
+    saveMerchantRules(updated)
     setMerchantRules(updated)
   }
 
+  const PAGE = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -8 }, transition: { duration: 0.18 } }
   return (
-    <div className="p-4 sm:p-6 max-w-xl space-y-6">
+    <motion.div {...PAGE} className="p-4 sm:p-6 max-w-xl space-y-6">
 
       {/* ── Branding ─────────────────────────────────────────────────────────── */}
       <div className="card p-5 space-y-4">
@@ -181,6 +185,15 @@ export default function SettingsPage({
             {MODELS.map(m => <option key={m}>{m}</option>)}
           </select>
         </div>
+      </div>
+
+      {/* ── Theme Style ──────────────────────────────────────────────────────── */}
+      <div className="card p-5 space-y-4">
+        <h3 className="font-semibold text-sm flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
+          <Sparkles size={14} style={{ color: 'var(--primary)' }} />
+          Theme Style
+        </h3>
+        <ThemeStylePicker />
       </div>
 
       {/* ── Display ──────────────────────────────────────────────────────────── */}
@@ -331,6 +344,6 @@ export default function SettingsPage({
         )}
       </div>
 
-    </div>
+    </motion.div>
   )
 }

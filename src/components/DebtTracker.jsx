@@ -1,5 +1,8 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Plus, Trash2, Edit2, CreditCard, TrendingDown, Zap, Calendar } from 'lucide-react'
+
+const PAGE = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -8 }, transition: { duration: 0.18 } }
 
 const fmt      = n => '$' + Math.abs(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 const fmtShort = n => '$' + Math.abs(n).toLocaleString('en-US', { maximumFractionDigits: 0 })
@@ -75,7 +78,7 @@ export default function DebtTracker({ debts, onSave, settings = {} }) {
   const deleteDebt = (id) => onSave(debts.filter(d => d.id !== id))
 
   return (
-    <div className="p-4 sm:p-6 max-w-2xl space-y-4">
+    <motion.div {...PAGE} className="p-4 sm:p-6 max-w-2xl space-y-4">
 
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -401,6 +404,6 @@ export default function DebtTracker({ debts, onSave, settings = {} }) {
           })}
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }

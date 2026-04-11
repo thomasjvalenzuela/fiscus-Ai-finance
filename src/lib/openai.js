@@ -1,6 +1,21 @@
 import { CATEGORIES } from './categories.js'
 import { extractKeyword } from './transferDetect.js'
 
+/**
+ * When VITE_PROXY_URL is set (e.g. "/.netlify/functions/openai-proxy"),
+ * all requests are routed through the server-side proxy and the API key
+ * is never sent from the browser.  Fall back to the direct OpenAI endpoint
+ * when no proxy is configured (local dev with a user-supplied key).
+ */
+const PROXY_URL = import.meta.env.VITE_PROXY_URL ?? null
+const OPENAI_ENDPOINT = PROXY_URL ?? 'https://api.openai.com/v1/chat/completions'
+
+function buildHeaders(apiKey) {
+  const h = { 'Content-Type': 'application/json' }
+  if (!PROXY_URL && apiKey) h.Authorization = `Bearer ${apiKey}`
+  return h
+}
+
 const BATCH_SIZE = 25
 const GROUP_BATCH_SIZE = 30 // keyword groups per API call (more efficient)
 
@@ -59,12 +74,9 @@ JSON array only, no markdown fences: [{"index":1,"category":"Shopping","confiden
 }
 
 export async function categorizeBatch(transactions, apiKey, model = 'gpt-4o-mini', signal) {
-  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+  const resp = await fetch(OPENAI_ENDPOINT, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: buildHeaders(apiKey),
     signal,
     body: JSON.stringify({
       model,
@@ -122,9 +134,9 @@ export async function categorizeAll(transactions, apiKey, model, onProgress, sig
  * returns [{ index, category, confidence }]
  */
 async function categorizeGroupsBatch(groups, apiKey, model, signal) {
-  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+  const resp = await fetch(OPENAI_ENDPOINT, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    headers: buildHeaders(apiKey),
     signal,
     body: JSON.stringify({
       model,
@@ -200,12 +212,9 @@ DEBTS: ${debts.length ? debts.map(d => `${d.name} $${d.balance} @ ${d.apr}% APR`
 
 Be concise, specific, and actionable. Use actual numbers from the data above.`
 
-  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+  const resp = await fetch(OPENAI_ENDPOINT, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers: buildHeaders(apiKey),
     signal,
     body: JSON.stringify({
       model,
@@ -275,9 +284,9 @@ Return JSON array only, no markdown:
 
 Include only expense categories (not income, not Transfer/Internal). Order by amount descending.`
 
-  const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+  const resp = await fetch(OPENAI_ENDPOINT, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+    headers: buildHeaders(apiKey),
     signal,
     body: JSON.stringify({ model, temperature: 0.3, messages: [{ role: 'user', content: prompt }] }),
   })

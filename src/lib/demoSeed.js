@@ -3,7 +3,7 @@
  * All data is fictional. No real personal or financial information.
  */
 
-import { storage } from './storage.js'
+import { load, save } from '../stores/_storage.js'
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -179,14 +179,14 @@ const DEBTS = [
  */
 export function seedDemoData() {
   // Only seed if no transactions exist yet for this user
-  const existing = storage.getTransactions()
+  const existing = load('transactions', [])
   if (existing.length > 0) return
 
-  storage.saveTransactions(TX)
-  storage.saveBudgets(BUDGETS)
-  storage.saveDebts(DEBTS)
-  storage.saveWizard({ completed: true, skipped: false, profile: { name: 'Demo User' } })
-  storage.saveSettings({
+  save('transactions', TX)
+  save('budgets', BUDGETS)
+  save('debts', DEBTS)
+  save('wizard', { completed: true, skipped: false, profile: { name: 'Demo User' } })
+  save('settings', {
     openaiKey:   '',
     openaiModel: 'gpt-4o-mini',
     pageSize:    50,

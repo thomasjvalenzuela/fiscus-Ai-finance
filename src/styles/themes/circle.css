@@ -1,0 +1,99 @@
+/**
+ * Circle theme — dark navy aesthetic.
+ *
+ * Scoped entirely under [data-theme="circle"] so it cannot affect the default
+ * theme.  To revert: delete this file and remove its import from main.jsx.
+ *
+ * Revert test: delete the file, run npm run build — build must still pass.
+ */
+
+/* ── Base tokens ─────────────────────────────────────────────────────────────── */
+[data-theme="circle"] {
+  --bg:             #0d1b2a;
+  --bg-card:        #1a2e44;
+  --bg-sidebar:     #1e2d3d;
+  --border:         #2a3f5a;
+  --text-primary:   #e8f4f8;
+  --text-secondary: #8ab4ca;
+  --text-muted:     #546e7a;
+  --shadow:         0 4px 20px rgba(0, 0, 0, 0.45);
+  --shadow-md:      0 8px 40px rgba(0, 0, 0, 0.55);
+
+  /* Circle accent — teal-blue */
+  --primary:        #29b6d4;
+  --primary-hover:  #1fa0bb;
+  --accent:         #29b6d4;
+  --accent-light:   rgba(41, 182, 212, 0.12);
+
+  --success:        #4caf82;
+  --warning:        #f7b731;
+  --danger:         #ef5350;
+  --info:           #42a5f5;
+
+  color-scheme: dark;
+}
+
+/* ── Card overrides ──────────────────────────────────────────────────────────── */
+[data-theme="circle"] .card {
+  border-radius: 1rem;
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+}
+
+/* Teal→blue gradient hero card */
+[data-theme="circle"] .card-hero {
+  background: linear-gradient(135deg, #0277bd 0%, #00838f 100%);
+  border-radius: 1.25rem;
+  box-shadow: 0 6px 28px rgba(2, 119, 189, 0.35);
+}
+
+/* ── Typography ──────────────────────────────────────────────────────────────── */
+[data-theme="circle"] body {
+  font-family: 'Inter', 'DM Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-primary);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────────────  */
+[data-theme="circle"] .btn-primary {
+  border-radius: 0.625rem;
+  background: linear-gradient(135deg, var(--primary) 0%, #1fa0bb 100%);
+  box-shadow: 0 2px 10px rgba(41, 182, 212, 0.25);
+}
+[data-theme="circle"] .btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-hover) 0%, #1890a8 100%);
+}
+
+[data-theme="circle"] .btn-ghost {
+  border-radius: 0.625rem;
+}
+
+/* ── Inputs ──────────────────────────────────────────────────────────────────── */
+[data-theme="circle"] .input {
+  border-radius: 0.625rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+[data-theme="circle"] .input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(41, 182, 212, 0.15);
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────────────────────── */
+[data-theme="circle"] [style*="bg-sidebar"] {
+  background: var(--bg-sidebar);
+}
+
+/* ── KPI "hero" stat card — warm peach gradient for Expenses card ─────────────
+   We target the danger-coloured card specifically via its inline colour style.   */
+[data-theme="circle"] .card[data-kpi="expenses"] {
+  background: linear-gradient(135deg, #6a1b3a 0%, #ad1457 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────────── */
+[data-theme="circle"] ::-webkit-scrollbar-thumb {
+  background: var(--border);
+}

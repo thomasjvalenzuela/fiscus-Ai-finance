@@ -1,18 +1,21 @@
-import { LayoutDashboard, ArrowLeftRight, CheckCircle, PiggyBank, CreditCard, Bot, Upload, Settings, LogOut, Building2 } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
+import {
+  LayoutDashboard, ArrowLeftRight, CheckCircle, PiggyBank,
+  CreditCard, Bot, Upload, Settings, LogOut,
+} from 'lucide-react'
 
 const NAV = [
-  { id: 'dashboard',    label: 'Dashboard',     icon: LayoutDashboard },
-  { id: 'transactions', label: 'Transactions',  icon: ArrowLeftRight },
-  { id: 'review',       label: 'Review',        icon: CheckCircle },
-  { id: 'budget',       label: 'Budget',        icon: PiggyBank },
-  { id: 'debt',         label: 'Debt Tracker',  icon: CreditCard },
-  { id: 'rental',       label: 'Rental',        icon: Building2 },
-  { id: 'advisor',      label: 'AI Advisor',    icon: Bot },
-  { id: 'import',       label: 'Import Data',   icon: Upload },
-  { id: 'settings',     label: 'Settings',      icon: Settings },
+  { to: '/dashboard',    label: 'Dashboard',    icon: LayoutDashboard },
+  { to: '/transactions', label: 'Transactions', icon: ArrowLeftRight },
+  { to: '/review',       label: 'Review',       icon: CheckCircle },
+  { to: '/budget',       label: 'Budget',       icon: PiggyBank },
+  { to: '/debt',         label: 'Debt Tracker', icon: CreditCard },
+  { to: '/advisor',      label: 'AI Advisor',   icon: Bot },
+  { to: '/import',       label: 'Import Data',  icon: Upload },
+  { to: '/settings',     label: 'Settings',     icon: Settings },
 ]
 
-export default function Sidebar({ page, setPage, reviewCount = 0, user, onLogout, branding = {} }) {
+export default function Sidebar({ reviewCount = 0, user, onLogout, branding = {}, onCloseMobile }) {
   const appName = branding.appName || 'Fiscus'
   const tagline = branding.tagline || 'Personal Finance'
   const logoUrl = branding.logoUrl || ''
@@ -28,7 +31,7 @@ export default function Sidebar({ page, setPage, reviewCount = 0, user, onLogout
           <img src={logoUrl} alt={appName} className="w-7 h-7 rounded-lg object-cover shrink-0" />
         ) : (
           <div className="grid grid-cols-2 gap-0.5 w-7 h-7 rotate-45 overflow-hidden rounded-sm shrink-0">
-            {[0, 1, 2, 3].map(i => (
+            {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
                 className="rounded-[2px]"
@@ -47,15 +50,16 @@ export default function Sidebar({ page, setPage, reviewCount = 0, user, onLogout
 
       {/* Nav */}
       <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto">
-        {NAV.map(({ id, label, icon: Icon }) => (
-          <button
-            key={id}
-            onClick={() => setPage(id)}
-            className={`nav-item ${page === id ? 'active' : ''}`}
+        {NAV.map(({ to, label, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            onClick={onCloseMobile}
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <Icon size={16} className="shrink-0" />
             <span className="flex-1">{label}</span>
-            {id === 'review' && reviewCount > 0 && (
+            {to === '/review' && reviewCount > 0 && (
               <span
                 className="text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white shrink-0"
                 style={{ background: 'var(--primary)' }}
@@ -63,7 +67,7 @@ export default function Sidebar({ page, setPage, reviewCount = 0, user, onLogout
                 {reviewCount}
               </span>
             )}
-          </button>
+          </NavLink>
         ))}
       </nav>
 

@@ -165,9 +165,9 @@ export async function loginAsDemo() {
   sessionStorage.setItem(SESSION_KEY, JSON.stringify(session))
 
   // Set user namespace before seeding so data goes to the right keys
-  const { storage }      = await import('./storage.js')
-  const { seedDemoData } = await import('./demoSeed.js')
-  storage.setUser(DEMO_USER)
+  const { setActiveUser } = await import('../stores/_storage.js')
+  const { seedDemoData }  = await import('./demoSeed.js')
+  setActiveUser(DEMO_USER)
   seedDemoData()
 
   return session

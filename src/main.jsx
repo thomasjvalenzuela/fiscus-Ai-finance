@@ -1,10 +1,18 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
+import './styles/themes/circle.css'
 import App from './App.jsx'
+
+// import.meta.env.BASE_URL honours the `base` field in vite.config.js so the
+// same build works both on GitHub Pages (/fiscus-Ai-finance/) and localhost (/).
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <BrowserRouter basename={basename}>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
 )

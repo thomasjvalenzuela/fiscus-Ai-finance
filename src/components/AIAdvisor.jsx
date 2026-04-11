@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { chatWithAdvisor } from '../lib/openai.js'
 import { Send, Bot, User, Sparkles, Trash2 } from 'lucide-react'
-import { storage } from '../lib/storage.js'
+import { useSettingsStore } from '../stores/useSettingsStore.js'
 
 const QUICK = [
   'Where am I overspending?',
@@ -12,7 +12,8 @@ const QUICK = [
 ]
 
 export default function AIAdvisor({ summary, debts, settings }) {
-  const [messages, setMessages] = useState(() => storage.getChatHistory())
+  const { getChatHistory, saveChatHistory, clearChatHistory } = useSettingsStore()
+  const [messages, setMessages] = useState(() => getChatHistory())
   const [input, setInput]       = useState('')
   const [loading, setLoading]   = useState(false)
   const [streaming, setStreaming] = useState('')
@@ -22,8 +23,8 @@ export default function AIAdvisor({ summary, debts, settings }) {
 
   // Save whenever messages change
   useEffect(() => {
-    storage.saveChatHistory(messages)
-  }, [messages])
+    saveChatHistory(messages)
+  }, [messages, saveChatHistory])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -65,7 +66,7 @@ export default function AIAdvisor({ summary, debts, settings }) {
     setMessages([])
     setStreaming('')
     setError('')
-    storage.clearChatHistory()
+    clearChatHistory()
   }
 
   const hasKey = !!settings.openaiKey

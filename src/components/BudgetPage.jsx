@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { Plus, Trash2, Edit2, Check, X, Sparkles, Loader, ChevronDown, ChevronUp } from 'lucide-react'
 import { catMeta, CATEGORIES } from '../lib/categories.js'
 import { suggestBudgets } from '../lib/openai.js'
@@ -69,8 +70,9 @@ export default function BudgetPage({ budgets, onSave, summary, settings, rentalP
   }
 
   // ── Render ───────────────────────────────────────────────────────────────────
+  const PAGE = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -8 }, transition: { duration: 0.18 } }
   return (
-    <div className="p-4 sm:p-6 max-w-2xl">
+    <motion.div {...PAGE} className="p-4 sm:p-6 max-w-2xl">
 
       {/* Header */}
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
@@ -252,6 +254,6 @@ export default function BudgetPage({ budgets, onSave, summary, settings, rentalP
           })}
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }

@@ -3,29 +3,56 @@
   "private": true,
   "version": "1.2.0",
   "description": "AI-powered personal finance dashboard — client-side only, no backend required.",
-  "keywords": ["finance", "personal-finance", "budgeting", "react", "vite", "openai"],
+  "keywords": [
+    "finance",
+    "personal-finance",
+    "budgeting",
+    "react",
+    "vite",
+    "openai"
+  ],
   "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint src --max-warnings 0",
+    "format": "prettier --write src",
+    "test": "vitest run",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
+    "framer-motion": "^12.38.0",
     "lucide-react": "^0.469.0",
     "papaparse": "^5.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "recharts": "^2.15.0"
+    "react-router-dom": "^7.14.0",
+    "recharts": "^2.15.0",
+    "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/ui": "^4.1.4",
     "autoprefixer": "^10.4.20",
+    "eslint": "^10.2.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "jsdom": "^29.0.2",
     "postcss": "^8.5.1",
+    "prettier": "^3.8.2",
     "tailwindcss": "^3.4.17",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "vitest": "^4.1.4"
   }
 }

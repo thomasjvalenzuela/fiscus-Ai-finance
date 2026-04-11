@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
+import { motion } from 'framer-motion'
 import { Upload, CheckCircle, AlertCircle, X } from 'lucide-react'
 import { parseFireflyCSV, mergeTransactions } from '../lib/csvParser.js'
 
@@ -47,8 +48,9 @@ export default function ImportPage({ transactions, onImport }) {
   const income = preview?.parsed.filter(t => t.isIncome).length ?? 0
   const expense = preview?.parsed.filter(t => t.isExpense).length ?? 0
 
+  const PAGE = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -8 }, transition: { duration: 0.18 } }
   return (
-    <div className="p-6 max-w-2xl">
+    <motion.div {...PAGE} className="p-6 max-w-2xl">
       <h2 className="text-lg font-semibold mb-1">Import Transactions</h2>
       <p className="text-sm text-white/40 mb-6">Supports Firefly III CSV export format. Duplicates are detected by <code className="text-accent text-xs">import_hash_v2</code>.</p>
 
@@ -124,6 +126,6 @@ export default function ImportPage({ transactions, onImport }) {
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }

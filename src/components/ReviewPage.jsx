@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { motion } from 'framer-motion'
 import { categorizeAllGroups } from '../lib/openai.js'
 import { catMeta } from '../lib/categories.js'
 import { CategoryPicker } from './CategoryChip.jsx'
 import { findPossibleDuplicates } from '../lib/dedup.js'
 import { extractKeyword } from '../lib/transferDetect.js'
-import { storage } from '../lib/storage.js'
+import { useSettingsStore } from '../stores/useSettingsStore.js'
 import {
   Sparkles, CheckCircle, X, AlertTriangle,
   ChevronDown, ChevronUp, Clock, RotateCcw, Tag,
@@ -61,6 +62,10 @@ export default function ReviewPage({
   onUpdateCategory,
   onSaveTransactions,
 }) {
+  const {
+    getReviewProgress, saveReviewProgress, clearReviewProgress,
+    getMerchantRules, saveMerchantRules,
+  } = useSettingsStore()
   const [tab,       setTab]     = useState('ai')  // 'ai' | 'duplicates'
   const [phase,     setPhase]   = useState('idle') // 'idle' | 'running' | 'done'
   const [sugg,      setSugg]    = useState({})     // keyword → { category, confidence, approved }
@@ -90,7 +95,7 @@ export default function ReviewPage({
 
   // ── Resume saved progress on mount ─────────────────────────────────────────
   useEffect(() => {
-    const saved = storage.getReviewProgress()
+    const saved = getReviewProgress()
     if (
       saved?.txCount === uncategorized.length &&
       Object.keys(saved.suggestions || {}).length > 0
@@ -105,7 +110,7 @@ export default function ReviewPage({
     setResume(null)
   }
   const discardResume = () => {
-    storage.clearReviewProgress()
+    clearReviewProgress()
     setResume(null)
   }
 
@@ -145,7 +150,7 @@ export default function ReviewPage({
             if (!partialRef.current[kw]) partialRef.current[kw] = { ...v, approved: false }
           }
           // Persist to localStorage — works regardless of mount state
-          storage.saveReviewProgress({
+          saveReviewProgress({
             txCount: uncategorized.length,
             suggestions: { ...partialRef.current },
           })
@@ -161,7 +166,7 @@ export default function ReviewPage({
       }
       const finalSugg = { ...partialRef.current }
       setSugg(finalSugg)
-      storage.saveReviewProgress({ txCount: uncategorized.length, suggestions: finalSugg })
+      saveReviewProgress({ txCount: uncategorized.length, suggestions: finalSugg })
       setPhase('done')
     } catch (e) {
       if (e.name !== 'AbortError') setError(e.message)
@@ -184,9 +189,9 @@ export default function ReviewPage({
     )
 
     // Persist merchant rule so future imports auto-categorize
-    const rules = storage.getMerchantRules()
+    const rules = getMerchantRules()
     if (!rules.find(r => r.keyword === keyword)) {
-      storage.saveMerchantRules([
+      saveMerchantRules([
         ...rules,
         { keyword, category: s.category, createdAt: new Date().toISOString() },
       ])
@@ -194,7 +199,7 @@ export default function ReviewPage({
 
     const updated = { ...sugg, [keyword]: { ...s, approved: true } }
     setSugg(updated)
-    storage.saveReviewProgress({ txCount: uncategorized.length, suggestions: updated })
+    saveReviewProgress({ txCount: uncategorized.length, suggestions: updated })
     if (expanded === keyword) setExpanded(null)
   }, [sugg, groups, transactions, onSaveTransactions, uncategorized.length, expanded])
 
@@ -213,20 +218,20 @@ export default function ReviewPage({
     )
 
     // Save all new merchant rules at once
-    const rules    = storage.getMerchantRules()
+    const rules    = getMerchantRules()
     const newRules = [...rules]
     pendingList.forEach(([kw, s]) => {
       if (!newRules.find(r => r.keyword === kw)) {
         newRules.push({ keyword: kw, category: s.category, createdAt: new Date().toISOString() })
       }
     })
-    storage.saveMerchantRules(newRules)
+    saveMerchantRules(newRules)
 
     const updated = Object.fromEntries(
       Object.entries(sugg).map(([kw, s]) => [kw, { ...s, approved: true }]),
     )
     setSugg(updated)
-    storage.saveReviewProgress({ txCount: uncategorized.length, suggestions: updated })
+    saveReviewProgress({ txCount: uncategorized.length, suggestions: updated })
     setExpanded(null)
   }, [sugg, groups, transactions, onSaveTransactions, uncategorized.length])
 
@@ -234,7 +239,7 @@ export default function ReviewPage({
     const n = { ...sugg }
     delete n[keyword]
     setSugg(n)
-    storage.saveReviewProgress({ txCount: uncategorized.length, suggestions: n })
+    saveReviewProgress({ txCount: uncategorized.length, suggestions: n })
     if (expanded === keyword) setExpanded(null)
   }, [sugg, uncategorized.length, expanded])
 
@@ -243,8 +248,9 @@ export default function ReviewPage({
   }
 
   // ── Render ─────────────────────────────────────────────────────────────────
+  const PAGE = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -8 }, transition: { duration: 0.18 } }
   return (
-    <div className="p-4 sm:p-6">
+    <motion.div {...PAGE} className="p-4 sm:p-6">
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 p-1 rounded-xl w-fit" style={{ background: 'var(--bg)' }}>
@@ -615,7 +621,7 @@ export default function ReviewPage({
                 onClick={() => {
                   setSugg({})
                   setPhase('idle')
-                  storage.clearReviewProgress()
+                  clearReviewProgress()
                 }}
                 className="btn-ghost text-xs mt-5"
               >
@@ -693,6 +699,6 @@ export default function ReviewPage({
           ))}
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }
